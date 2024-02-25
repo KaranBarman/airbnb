@@ -1,9 +1,12 @@
+import { createCategoryPage } from "@/app/actions";
+import CreationBottomBar from "@/app/components/CreationBottomBar";
+import SubmitButton from "@/app/components/SubmitButton";
 import SelectedCategory from "@/app/components/selectedCategory";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
 
-const page = () => {
+const StructureRoute = ({ params }: { params: { id: string } }) => {
   return (
     <>
       <div className="w-3/5 mx-auto">
@@ -11,22 +14,13 @@ const page = () => {
           Which of these describe your Home?
         </h2>
       </div>
-      <form>
+      <form action={createCategoryPage}>
+        <input type="hidden" name="homeId" value={params.id} />
         <SelectedCategory />
-        <div className="fixed w-full bottom-0 z-10 bg-white border-t h-24">
-          <div className=" flex items-center justify-between mx-auto px-5 lg:px-10 h-full">
-            <Link
-              href={"/"}
-              className={buttonVariants({ variant: "secondary", size: "lg" })}
-            >
-              Cancel
-            </Link>
-            <Button size={"lg"}>Save</Button>
-          </div>
-        </div>
+        <CreationBottomBar />
       </form>
     </>
   );
 };
 
-export default page;
+export default StructureRoute;
